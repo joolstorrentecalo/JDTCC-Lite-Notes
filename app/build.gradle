@@ -13,11 +13,11 @@ android {
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId "com.simplemobiletools.notes.pro"
-        minSdkVersion 21
+        applicationId "com.jtcstudios.notes"
+        minSdkVersion 29
         targetSdkVersion 33
-        versionCode 99
-        versionName "6.14.1"
+        versionCode 1
+        versionName "1.0.0"
         setProperty("archivesBaseName", "notes")
     }
 

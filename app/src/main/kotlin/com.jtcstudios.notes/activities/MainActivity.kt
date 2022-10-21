@@ -98,7 +98,6 @@ class MainActivity : SimpleActivity() {
         pager_title_strip.setTextSize(TypedValue.COMPLEX_UNIT_PX, getPercentageFontSize())
         pager_title_strip.layoutParams.height =
             (pager_title_strip.height + resources.getDimension(R.dimen.activity_margin) * 2 * (config.fontSizePercentage / 100f)).toInt()
-        checkWhatsNewDialog()
         checkIntents(intent)
 
         storeStateVariables()
@@ -216,8 +215,6 @@ class MainActivity : SimpleActivity() {
                 R.id.import_notes -> tryImportNotes()
                 R.id.print -> fragment?.handleUnlocking { printText() }
                 R.id.delete_note -> fragment?.handleUnlocking { displayDeleteNotePrompt() }
-                R.id.settings -> launchSettings()
-                R.id.about -> launchAbout()
                 R.id.remove_done_items -> fragment?.handleUnlocking { removeDoneItems() }
                 R.id.sort_checklist -> fragment?.handleUnlocking { displaySortChecklistDialog() }
                 else -> return@setOnMenuItemClickListener false
@@ -612,29 +609,6 @@ class MainActivity : SimpleActivity() {
                 mAdapter?.focusEditText(getNoteIndexWithId(newNoteId))
             }
         }
-    }
-
-    private fun launchSettings() {
-        hideKeyboard()
-        startActivity(Intent(applicationContext, SettingsActivity::class.java))
-    }
-
-    private fun launchAbout() {
-        val licenses = LICENSE_RTL
-
-        val faqItems = arrayListOf(
-            FAQItem(R.string.faq_1_title_commons, R.string.faq_1_text_commons),
-            FAQItem(R.string.faq_1_title, R.string.faq_1_text)
-        )
-
-        if (!resources.getBoolean(R.bool.hide_google_relations)) {
-            faqItems.add(FAQItem(R.string.faq_2_title_commons, R.string.faq_2_text_commons))
-            faqItems.add(FAQItem(R.string.faq_6_title_commons, R.string.faq_6_text_commons))
-            faqItems.add(FAQItem(R.string.faq_7_title_commons, R.string.faq_7_text_commons))
-            faqItems.add(FAQItem(R.string.faq_10_title_commons, R.string.faq_10_text_commons))
-        }
-
-        startAboutActivity(R.string.app_name, licenses, BuildConfig.VERSION_NAME, faqItems, true)
     }
 
     private fun tryOpenFile() {
@@ -1359,25 +1333,6 @@ class MainActivity : SimpleActivity() {
             if (shouldRecreateMenu) {
                 refreshMenuItems()
             }
-        }
-    }
-
-    private fun checkWhatsNewDialog() {
-        arrayListOf<Release>().apply {
-            add(Release(25, R.string.release_25))
-            add(Release(28, R.string.release_28))
-            add(Release(29, R.string.release_29))
-            add(Release(39, R.string.release_39))
-            add(Release(45, R.string.release_45))
-            add(Release(49, R.string.release_49))
-            add(Release(51, R.string.release_51))
-            add(Release(57, R.string.release_57))
-            add(Release(62, R.string.release_62))
-            add(Release(64, R.string.release_64))
-            add(Release(67, R.string.release_67))
-            add(Release(81, R.string.release_81))
-            add(Release(86, R.string.release_86))
-            checkWhatsNew(this, BuildConfig.VERSION_CODE)
         }
     }
 
